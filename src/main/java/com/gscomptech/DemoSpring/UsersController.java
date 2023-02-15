@@ -2,9 +2,7 @@ package com.gscomptech.DemoSpring;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -28,5 +26,21 @@ public class UsersController {
             throw new ResponseStatusException(HttpStatusCode.valueOf(404), "Resource not available here");
         }
         return target;
+    }
+
+    @PostMapping("/users")
+    public User createUser(@RequestBody User newUser) {
+        return userService.createUser(newUser);
+    }
+
+
+    @PutMapping("/users/{id}")
+    public User createUser(@RequestBody User newUser, @PathVariable int id) {
+        return userService.updateUser(id, newUser);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable int id) {
+        userService.deleteUser(id);
     }
 }

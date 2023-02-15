@@ -32,4 +32,30 @@ public class UsersService {
         }
         return target;
     }
+
+    public User createUser(User newUser) {
+        users.add(newUser);
+        return newUser;
+    }
+
+    public User updateUser(int id, User newUser) {
+        User target = null;
+        for(User user : users) {
+            if(user.id == id) {
+                target = user;
+                target.name = newUser.name;
+                break;
+            }
+        }
+        return newUser;
+    }
+
+    public void deleteUser(int id) {
+        for(User user : users) {
+            if(user.id == id) {
+                users.remove(user);
+                break;
+            }
+        }
+    }
 }
