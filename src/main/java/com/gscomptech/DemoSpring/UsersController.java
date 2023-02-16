@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UsersController {
@@ -19,9 +20,9 @@ public class UsersController {
     }
 
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable int id) {
+    public Optional<User> getUser(@PathVariable int id) {
 
-        User target = userService.getUserById(id);
+        Optional<User> target = userService.getUserById(id);
         if(target == null) {
             throw new ResponseStatusException(HttpStatusCode.valueOf(404), "Resource not available here");
         }

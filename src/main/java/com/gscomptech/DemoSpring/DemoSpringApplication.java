@@ -13,7 +13,7 @@ public class DemoSpringApplication {
 		ApplicationContext appContext = SpringApplication.run(DemoSpringApplication.class, args);
 		String[] beans = appContext.getBeanDefinitionNames();
 		for (String bean: beans) {
-			System.out.println(bean);
+			//System.out.println(bean);
 		}
 	}
 }

@@ -1,61 +1,34 @@
 package com.gscomptech.DemoSpring;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsersService {
-    public List<User> users;
-    public UsersService() {
-        users = new ArrayList<>();
-        User user1 = new User(1, "abc");
-        User user2 = new User(2, "xyz");
-        User user3 = new User(3, "pqr");
-        users.add(user1);
-        users.add(user2);
-        users.add(user3);
-    }
+
+    @Autowired
+    UserRepository userRepository;
 
     public List<User> getUsers() {
-        return users;
+        return userRepository.findAll();
     }
 
-    public User getUserById(int id) {
-        User target = null;
-        for(User user : users) {
-            if(user.id == id) {
-                target = user;
-                break;
-            }
-        }
-        return target;
+    public Optional<User> getUserById(int id) {
+        return userRepository.findById(id);
     }
 
     public User createUser(User newUser) {
-        users.add(newUser);
-        return newUser;
+        return userRepository.save(newUser);
     }
 
     public User updateUser(int id, User newUser) {
-        User target = null;
-        for(User user : users) {
-            if(user.id == id) {
-                target = user;
-                target.name = newUser.name;
-                break;
-            }
-        }
-        return newUser;
+        return userRepository.save(newUser);
     }
 
     public void deleteUser(int id) {
-        for(User user : users) {
-            if(user.id == id) {
-                users.remove(user);
-                break;
-            }
-        }
+        userRepository.deleteById(id);
     }
 }
